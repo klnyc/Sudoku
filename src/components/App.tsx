@@ -80,7 +80,7 @@ const App = (): JSX.Element => {
   }, [grid]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (!grid) return;
+    if (!grid || !validCells) return;
     const { name, value } = event.target;
     const [row, column] = name.split("-");
     const rowKey = parseInt(row);
@@ -94,6 +94,9 @@ const App = (): JSX.Element => {
       setGrid(updatedGrid);
     } else {
       setMessage("Please enter a number from 1 to 9.");
+      const updatedValidCells = { ...validCells };
+      updatedValidCells.row[rowKey] = false;
+      updatedValidCells.column[columnKey] = false;
     }
   };
 

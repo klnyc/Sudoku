@@ -11,7 +11,12 @@ export const Grid = ({ handleChange, validCells }: GridProps): JSX.Element => {
   const rows = [];
   for (let row = 1; row <= 9; row++) {
     rows.push(
-      <Row row={row} handleChange={handleChange} validCells={validCells} />
+      <Row
+        row={row}
+        handleChange={handleChange}
+        validCells={validCells}
+        key={row}
+      />
     );
   }
   return <div>{rows}</div>;
