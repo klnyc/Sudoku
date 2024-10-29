@@ -1,13 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isValidNumber, allUniqueValuesInArray } from "../utility";
+import { Grid } from "./Grid";
 
-interface Grid {
+interface GridState {
   [row: number]: {
     [column: number]: number;
   };
 }
 
-interface ValidCells {
+export interface ValidCells {
   row: {
     [number: number]: boolean;
   };
@@ -17,12 +18,12 @@ interface ValidCells {
 }
 
 const App = (): JSX.Element => {
-  const [grid, setGrid] = useState<Grid>();
+  const [grid, setGrid] = useState<GridState>();
   const [validCells, setValidCells] = useState<ValidCells>();
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
-    const defaultGrid: Grid = {};
+    const defaultGrid: GridState = {};
     for (let row = 1; row <= 9; row++) {
       defaultGrid[row] = {};
       for (let column = 1; column <= 9; column++) {
@@ -41,7 +42,9 @@ const App = (): JSX.Element => {
 
   const isValidRow = (row: number): boolean => {
     if (!grid) return false;
-    const cells = Object.values(grid[row]).filter((number) => number);
+    const cells = Object.values(grid[row]).filter((number) =>
+      isValidNumber(number)
+    );
     return allUniqueValuesInArray(cells) && cells.length === 9;
   };
 
@@ -51,7 +54,7 @@ const App = (): JSX.Element => {
     for (let row = 1; row <= 9; row++) {
       cells.push(grid[row][column]);
     }
-    cells = cells.filter((number) => number);
+    cells = cells.filter((number) => isValidNumber(number));
     return allUniqueValuesInArray(cells) && cells.length === 9;
   };
 
@@ -94,39 +97,11 @@ const App = (): JSX.Element => {
     }
   };
 
-  const renderRow = (row: number): JSX.Element => {
-    const inputs = [];
-    for (let column = 1; column <= 9; column++) {
-      const id: string = `${row}-${column}`;
-      inputs.push(
-        <input
-          type="number"
-          onChange={handleChange}
-          className={
-            validCells?.row[row] || validCells?.column[column] ? "valid" : ""
-          }
-          name={id}
-          key={id}
-        />
-      );
-    }
-    return <div key={`row-${row}`}>{inputs}</div>;
-  };
-
-  const renderGrid = (): JSX.Element[] => {
-    const rows = [];
-    for (let row = 1; row <= 9; row++) {
-      rows.push(renderRow(row));
-    }
-    return rows;
-  };
-
   return (
     <div className="app">
-      {" "}
       <div className="title">SUDOKU</div>
       <div className="message">{message}</div>
-      {renderGrid()}
+      <Grid handleChange={handleChange} validCells={validCells} />
     </div>
   );
 };
