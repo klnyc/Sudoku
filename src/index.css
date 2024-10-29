@@ -45,6 +45,17 @@ input {
   font-size: 14px;
 }
 
+.title {
+  letter-spacing: 4px;
+  font-size: 18px;
+  height: 40px;
+}
+
 .message {
   height: 40px;
+  color: navajowhite;
+}
+
+.valid {
+  background-color: navajowhite;
 }
