@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isValidNumber, allUniqueValuesInArray } from "../utility";
 import { Grid } from "./Grid";
+import { Sidebar } from "./Sidebar";
+import { Button } from "@mui/material";
 
 interface GridState {
   [row: number]: {
@@ -18,6 +20,7 @@ export interface ValidCells {
 }
 
 const App = (): JSX.Element => {
+  const [openSidebar, setOpenSideBar] = useState<boolean>(true);
   const [grid, setGrid] = useState<GridState>();
   const [validCells, setValidCells] = useState<ValidCells>();
   const [message, setMessage] = useState<string>("");
@@ -39,6 +42,10 @@ const App = (): JSX.Element => {
     }
     setValidCells(validCells);
   }, []);
+
+  const toggleSidebar = (value: boolean): (() => void) => {
+    return () => setOpenSideBar(value);
+  };
 
   const isValidRow = (row: number): boolean => {
     if (!grid) return false;
@@ -102,6 +109,8 @@ const App = (): JSX.Element => {
 
   return (
     <div className="app">
+      <Sidebar open={openSidebar} onClose={toggleSidebar(false)} />
+      <Button onClick={toggleSidebar(true)}>Open drawer</Button>
       <div className="title">SUDOKU</div>
       <div className="message">{message}</div>
       <Grid handleChange={handleChange} validCells={validCells} />
