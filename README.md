@@ -1,3 +1,3 @@
 # Play Sudoku
 
-https://klnyc.github.io/sudoku/
+https://klnyc.github.io/Sudoku/
