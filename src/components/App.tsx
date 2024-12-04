@@ -3,6 +3,7 @@ import { Game } from "./Game";
 import { Sidebar } from "./Sidebar";
 import { Button } from "@mui/material";
 import { GAME } from "../constants";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const App = (): JSX.Element => {
   const [openSidebar, setOpenSideBar] = useState<boolean>(true);
@@ -19,7 +20,9 @@ const App = (): JSX.Element => {
         onClose={toggleSidebar(false)}
         setGame={setGame}
       />
-      <Button onClick={toggleSidebar(true)}>Open</Button>
+      <Button className="sidebar_icon" onClick={toggleSidebar(true)}>
+        <MenuIcon />
+      </Button>
       <Game game={game} />
     </div>
   );
