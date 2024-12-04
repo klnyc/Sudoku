@@ -16,10 +16,10 @@ export const Sidebar = ({
     <Drawer open={open} onClose={onClose}>
       <List>
         <ListItem onClick={() => setGame(GAME.Sudoku)}>
-          <ListItemText primary="Sudoku"></ListItemText>
+          <ListItemText className="sidebar_link" primary="Sudoku"></ListItemText>
         </ListItem>
         <ListItem onClick={() => setGame(GAME.MouseTracker)}>
-          <ListItemText primary="Mouse tracker"></ListItemText>
+          <ListItemText className="sidebar_link" primary="Mouse tracker"></ListItemText>
         </ListItem>
       </List>
     </Drawer>

@@ -20,9 +20,11 @@ const App = (): JSX.Element => {
         onClose={toggleSidebar(false)}
         setGame={setGame}
       />
-      <Button className="sidebar_icon" onClick={toggleSidebar(true)}>
-        <MenuIcon />
-      </Button>
+      <div className="sidebar_icon">
+        <Button onClick={toggleSidebar(true)}>
+          <MenuIcon />
+        </Button>
+      </div>
       <Game game={game} />
     </div>
   );

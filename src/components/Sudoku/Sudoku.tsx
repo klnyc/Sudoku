@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { isValidNumber, allUniqueValuesInArray } from "../utility";
+import { isValidNumber, allUniqueValuesInArray } from "../../utility";
 import { Grid } from "./Grid";
 
 interface GridState {

@@ -65,3 +65,7 @@ input {
   left: 0;
   top: 10px;
 }
+
+.sidebar_link:hover {
+  cursor: pointer;
+}
