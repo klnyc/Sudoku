@@ -3,6 +3,7 @@ import { isValidNumber, allUniqueValuesInArray } from "../utility";
 import { Grid } from "./Grid";
 import { Sidebar } from "./Sidebar";
 import { Button } from "@mui/material";
+import { Game } from "../constants";
 
 interface GridState {
   [row: number]: {
@@ -21,6 +22,7 @@ export interface ValidCells {
 
 const App = (): JSX.Element => {
   const [openSidebar, setOpenSideBar] = useState<boolean>(true);
+  const [game, setGame] = useState<Game>(Game.Sudoku);
   const [grid, setGrid] = useState<GridState>();
   const [validCells, setValidCells] = useState<ValidCells>();
   const [message, setMessage] = useState<string>("");
@@ -107,13 +109,30 @@ const App = (): JSX.Element => {
     }
   };
 
+  const Sudoku = () => {
+    return (
+      <>
+        <div className="title">SUDOKU</div>
+        <div className="message">{message}</div>
+        <Grid handleChange={handleChange} validCells={validCells} />
+      </>
+    );
+  };
+
+  const renderGame = () => {
+    switch (game) {
+      case Game.Sudoku:
+        return <Sudoku />;
+      case Game.MouseTracker:
+        return <></>;
+    }
+  };
+
   return (
     <div className="app">
-      <Sidebar open={openSidebar} onClose={toggleSidebar(false)} />
-      <Button onClick={toggleSidebar(true)}>Open drawer</Button>
-      <div className="title">SUDOKU</div>
-      <div className="message">{message}</div>
-      <Grid handleChange={handleChange} validCells={validCells} />
+      <Sidebar open={openSidebar} onClose={toggleSidebar(false)} setGame={setGame}/>
+      <Button onClick={toggleSidebar(true)}>Open</Button>
+      {renderGame()}
     </div>
   );
 };
