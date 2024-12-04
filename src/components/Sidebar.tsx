@@ -1,10 +1,10 @@
 import { Drawer, List, ListItem, ListItemText } from "@mui/material";
-import { Game } from "../constants";
+import { GAME } from "../constants";
 
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
-  setGame: (game: Game) => void;
+  setGame: (game: GAME) => void;
 }
 
 export const Sidebar = ({
@@ -15,10 +15,10 @@ export const Sidebar = ({
   return (
     <Drawer open={open} onClose={onClose}>
       <List>
-        <ListItem onClick={() => setGame(Game.Sudoku)}>
+        <ListItem onClick={() => setGame(GAME.Sudoku)}>
           <ListItemText primary="Sudoku"></ListItemText>
         </ListItem>
-        <ListItem onClick={() => setGame(Game.MouseTracker)}>
+        <ListItem onClick={() => setGame(GAME.MouseTracker)}>
           <ListItemText primary="Mouse tracker"></ListItemText>
         </ListItem>
       </List>

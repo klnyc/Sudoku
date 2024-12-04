@@ -1,138 +1,26 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { isValidNumber, allUniqueValuesInArray } from "../utility";
-import { Grid } from "./Grid";
+import { useState } from "react";
+import { Game } from "./Game";
 import { Sidebar } from "./Sidebar";
 import { Button } from "@mui/material";
-import { Game } from "../constants";
-
-interface GridState {
-  [row: number]: {
-    [column: number]: number;
-  };
-}
-
-export interface ValidCells {
-  row: {
-    [number: number]: boolean;
-  };
-  column: {
-    [number: number]: boolean;
-  };
-}
+import { GAME } from "../constants";
 
 const App = (): JSX.Element => {
   const [openSidebar, setOpenSideBar] = useState<boolean>(true);
-  const [game, setGame] = useState<Game>(Game.Sudoku);
-  const [grid, setGrid] = useState<GridState>();
-  const [validCells, setValidCells] = useState<ValidCells>();
-  const [message, setMessage] = useState<string>("");
-
-  useEffect(() => {
-    const defaultGrid: GridState = {};
-    for (let row = 1; row <= 9; row++) {
-      defaultGrid[row] = {};
-      for (let column = 1; column <= 9; column++) {
-        defaultGrid[row][column] = 0;
-      }
-    }
-    setGrid(defaultGrid);
-
-    const validCells: ValidCells = { row: {}, column: [] };
-    for (let number = 1; number <= 9; number++) {
-      validCells.row[number] = false;
-      validCells.column[number] = false;
-    }
-    setValidCells(validCells);
-  }, []);
+  const [game, setGame] = useState<GAME>(GAME.Sudoku);
 
   const toggleSidebar = (value: boolean): (() => void) => {
     return () => setOpenSideBar(value);
   };
 
-  const isValidRow = (row: number): boolean => {
-    if (!grid) return false;
-    const cells = Object.values(grid[row]).filter((number) =>
-      isValidNumber(number)
-    );
-    return allUniqueValuesInArray(cells) && cells.length === 9;
-  };
-
-  const isValidColumn = (column: number): boolean => {
-    if (!grid) return false;
-    let cells: number[] = [];
-    for (let row = 1; row <= 9; row++) {
-      cells.push(grid[row][column]);
-    }
-    cells = cells.filter((number) => isValidNumber(number));
-    return allUniqueValuesInArray(cells) && cells.length === 9;
-  };
-
-  useEffect(() => {
-    if (!validCells) return;
-    for (let number = 1; number <= 9; number++) {
-      const updatedValidCells = { ...validCells };
-
-      if (isValidRow(number)) {
-        updatedValidCells.row[number] = true;
-      } else {
-        updatedValidCells.row[number] = false;
-      }
-
-      if (isValidColumn(number)) {
-        updatedValidCells.column[number] = true;
-      } else {
-        updatedValidCells.column[number] = false;
-      }
-
-      setValidCells(updatedValidCells);
-    }
-  }, [grid]);
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (!grid || !validCells) return;
-    const { name, value } = event.target;
-    const [row, column] = name.split("-");
-    const rowKey = parseInt(row);
-    const columnKey = parseInt(column);
-    const input = parseInt(value);
-
-    if (isValidNumber(input) || !value) {
-      setMessage("");
-      const updatedGrid = { ...grid };
-      updatedGrid[rowKey][columnKey] = input;
-      setGrid(updatedGrid);
-    } else {
-      setMessage("Please enter a number from 1 to 9.");
-      const updatedValidCells = { ...validCells };
-      updatedValidCells.row[rowKey] = false;
-      updatedValidCells.column[columnKey] = false;
-    }
-  };
-
-  const Sudoku = () => {
-    return (
-      <>
-        <div className="title">SUDOKU</div>
-        <div className="message">{message}</div>
-        <Grid handleChange={handleChange} validCells={validCells} />
-      </>
-    );
-  };
-
-  const renderGame = () => {
-    switch (game) {
-      case Game.Sudoku:
-        return <Sudoku />;
-      case Game.MouseTracker:
-        return <></>;
-    }
-  };
-
   return (
     <div className="app">
-      <Sidebar open={openSidebar} onClose={toggleSidebar(false)} setGame={setGame}/>
+      <Sidebar
+        open={openSidebar}
+        onClose={toggleSidebar(false)}
+        setGame={setGame}
+      />
       <Button onClick={toggleSidebar(true)}>Open</Button>
-      {renderGame()}
+      <Game game={game} />
     </div>
   );
 };

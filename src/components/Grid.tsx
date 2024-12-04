@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { ValidCells } from "./App";
+import { ValidCells } from "./Sudoku";
 import { Row } from "./Row";
 
 interface GridProps {
