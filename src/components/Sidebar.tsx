@@ -14,7 +14,7 @@ export const Sidebar = ({
 }: SidebarProps): JSX.Element => {
   return (
     <Drawer open={open} onClose={onClose}>
-      <List>
+      <List sx={{ backgroundColor: "#454544", color: "white", height: "-webkit-fill-available" }}>
         <ListItem onClick={() => setGame(GAME.Sudoku)}>
           <ListItemText className="sidebar_link" primary="Sudoku"></ListItemText>
         </ListItem>
