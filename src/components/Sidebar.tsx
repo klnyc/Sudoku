@@ -14,12 +14,24 @@ export const Sidebar = ({
 }: SidebarProps): JSX.Element => {
   return (
     <Drawer open={open} onClose={onClose}>
-      <List sx={{ backgroundColor: "#454544", color: "white", height: "-webkit-fill-available" }}>
+      <List
+        sx={{
+          backgroundColor: "#454544",
+          color: "white",
+          height: "-webkit-fill-available",
+        }}
+      >
         <ListItem onClick={() => setGame(GAME.Sudoku)}>
-          <ListItemText className="sidebar_link" primary="Sudoku"></ListItemText>
+          <ListItemText
+            className="sidebar_link"
+            primary="Sudoku"
+          ></ListItemText>
         </ListItem>
         <ListItem onClick={() => setGame(GAME.MouseTracker)}>
-          <ListItemText className="sidebar_link" primary="Mouse tracker"></ListItemText>
+          <ListItemText
+            className="sidebar_link"
+            primary="Mouse tracker"
+          ></ListItemText>
         </ListItem>
       </List>
     </Drawer>

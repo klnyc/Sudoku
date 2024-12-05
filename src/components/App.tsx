@@ -6,7 +6,7 @@ import { GAME } from "../constants";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const App = (): JSX.Element => {
-  const [openSidebar, setOpenSideBar] = useState<boolean>(true);
+  const [openSidebar, setOpenSideBar] = useState<boolean>(false);
   const [game, setGame] = useState<GAME>(GAME.Sudoku);
 
   const toggleSidebar = (value: boolean): (() => void) => {
