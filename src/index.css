@@ -72,3 +72,11 @@ input {
 .sidebar_link:hover {
   cursor: pointer;
 }
+
+.larger-coordinate {
+  color: tan;
+}
+
+.smaller-coordinate {
+  color: salmon;
+}
